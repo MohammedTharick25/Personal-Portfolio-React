@@ -1,0 +1,56 @@
+.project-head {
+  text-align: center;
+  padding-top: 5%;
+}
+.project-head h1 {
+  margin-bottom: 0;
+  font-size: 2.5rem;
+}
+.project-head p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.project-container {
+  width: 100%;
+}
+
+.inner-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 5%;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 25%;
+  padding: 20px;
+  background-color: #0a000e;
+  border-radius: 20px;
+  margin-bottom: 3%;
+}
+.card-text a {
+  background-color: #623686;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.github-btns {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h3 {
+  text-align: center;
+  width: 95%;
+  margin-bottom: 0;
+}
+.project-description {
+  text-align: justify;
+  padding: 10px;
+  line-height: 20px;
+}
