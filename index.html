@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mohammed Tharick | Portfolio</title>
 
-    <link rel="icon" type="image/png" href="public/coding.png" />
+    <!-- CORRECT: Remove 'public/' and use the leading slash -->
+    <link rel="icon" type="image/png" href="/coding.png" />
     <meta name="theme-color" content="#000000" />
 
     <meta
@@ -18,13 +19,19 @@
     />
     <meta name="author" content="Mohammed Tharick" />
 
+    <!-- Schema.org (Google) -->
     <meta itemprop="name" content="Mohammed Tharick | Portfolio" />
     <meta
       itemprop="description"
       content="Self Developed personal website built with React.js"
     />
-    <meta itemprop="image" content="public/React-home.png" />
+    <!-- FIX: Use Absolute URL here too for best results -->
+    <meta
+      itemprop="image"
+      content="https://mt-personal-portfolio-react.netlify.app/React-home.png"
+    />
 
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Telegram) -->
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
@@ -35,18 +42,24 @@
       property="og:description"
       content="Self Developed personal website built with React.js"
     />
+    <!-- FIX: Keep this as the full URL. This is required for Telegram/WhatsApp -->
     <meta
       property="og:image"
       content="https://mt-personal-portfolio-react.netlify.app/React-home.png"
     />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Mohammed Tharick | Portfolio" />
     <meta
       name="twitter:description"
       content="Self Developed personal website built with React.js"
     />
-    <meta name="twitter:image" content="public/React-home.png" />
+    <!-- FIX: Changed from 'public/...' to full URL -->
+    <meta
+      name="twitter:image"
+      content="https://mt-personal-portfolio-react.netlify.app/React-home.png"
+    />
 
     <link
       rel="stylesheet"
