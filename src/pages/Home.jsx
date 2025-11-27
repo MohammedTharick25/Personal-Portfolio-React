@@ -54,17 +54,17 @@ function Home() {
               <br />
               <br />
               I’m skilled in <span>JavaScript, HTML, CSS, React,</span> and
-              <span>Node.js,</span> and I work comfortably across both{" "}
-              <span>frontend</span>
+              <span> Node.js,</span> and I work comfortably across both{" "}
+              <span>frontend </span>
               and <span>backend.</span> I also use <span>Python</span> and{" "}
-              <span>SQL</span>
+              <span>SQL </span>
               when projects need data handling or extra logic.
               <br />
               <br />
               I’m especially interested in developing modern web apps and
               exploring new ways to build dynamic, interactive systems. Whenever
               possible, I enjoy working with <span>React</span> and{" "}
-              <span>Node.js</span>
+              <span>Node.js </span>
               because they let me build fast and iterate even faster.
             </p>
           </div>

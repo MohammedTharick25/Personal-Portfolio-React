@@ -29,6 +29,10 @@
   border-radius: 20px;
   margin-bottom: 3%;
 }
+
+.card-text {
+  font-family: "Elsie Swash Caps";
+}
 .card-text a {
   background-color: #623686;
   padding: 10px 14px;
