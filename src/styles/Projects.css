@@ -31,12 +31,22 @@
 }
 .card-text a {
   background-color: #623686;
-  padding: 10px;
+  padding: 10px 14px;
   color: white;
   text-decoration: none;
   border-radius: 10px;
   display: flex;
   align-items: center;
+  transition: transform 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.card-text a:hover {
+  transform: translateY(-4px) scale(1.05);
+  background-color: #7a47a3;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0 0 10px rgba(205, 95, 248, 0.5), 0 0 20px rgba(205, 95, 248, 0.4),
+    0 0 30px rgba(205, 95, 248, 0.2);
 }
 
 .github-btns {

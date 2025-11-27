@@ -4,8 +4,13 @@ function Footer() {
   return (
     <>
       <footer>
-        <div>Design and Developed by Mohammed Tharick</div>
-        <div>Copyright © 2025 MT</div>
+        <div>
+          Design and Developed by{" "}
+          <span className="author-name">Mohammed Tharick</span>
+        </div>
+        <div>
+          Copyright © 2025 <span className="author-name">MT</span>
+        </div>
         <div className="social-links">
           <a
             href="https://www.instagram.com/md_tharick22/"

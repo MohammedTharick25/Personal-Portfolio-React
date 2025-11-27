@@ -1,5 +1,5 @@
 .contact-container {
-  padding-top: 5%; /* Space from navbar */
+  padding-top: 5%;
   padding-bottom: 5%;
   min-height: 80vh;
   display: flex;
@@ -21,7 +21,6 @@
   font-weight: bold;
 }
 
-/* Main Content Layout */
 .contact-content {
   display: flex;
   justify-content: space-between;
@@ -30,7 +29,6 @@
   gap: 50px;
 }
 
-/* Left Side: Info */
 .contact-info {
   flex: 1;
   display: flex;
@@ -86,7 +84,6 @@
   color: #a0a0a0;
 }
 
-/* Right Side: Form */
 .contact-form-area {
   flex: 1;
   background: rgba(255, 255, 255, 0.02);
@@ -115,10 +112,9 @@
   font-size: 1em;
   outline: none;
   transition: 0.3s ease;
-  box-sizing: border-box; /* Ensures padding doesn't break width */
+  box-sizing: border-box;
 }
 
-/* Focus effects for inputs */
 .input-group input:focus,
 .input-group textarea:focus {
   background-color: rgba(205, 95, 248, 0.1);
@@ -127,7 +123,7 @@
 }
 
 .input-group textarea {
-  resize: vertical; /* User can only resize height */
+  resize: vertical;
 }
 
 .send-btn {
@@ -152,7 +148,7 @@
 }
 
 .done-msg {
-  color: #4caf50; /* Green */
+  color: #4caf50;
   font-weight: bold;
   margin-top: 15px;
   display: block;
@@ -160,7 +156,7 @@
 }
 
 .not-done-msg {
-  color: #ff4d4d; /* Red */
+  color: #ff4d4d;
   font-weight: bold;
   margin-top: 15px;
   display: block;
@@ -168,12 +164,11 @@
 }
 
 button:disabled {
-  background-color: #5a3d66; /* Dimmed purple */
+  background-color: #5a3d66;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-/* Responsive Design */
 @media (max-width: 900px) {
   .contact-content {
     flex-direction: column;
@@ -186,7 +181,7 @@ button:disabled {
   }
 
   .contact-details {
-    align-items: center; /* Centers items in column layout */
+    align-items: center;
     text-align: left;
   }
 

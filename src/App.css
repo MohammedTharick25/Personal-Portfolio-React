@@ -36,15 +36,48 @@ nav .nav-links {
 }
 
 nav a {
+  position: relative;
   text-decoration: none;
   color: white;
 }
 
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0%;
+  height: 5px;
+  border-radius: 20px;
+  background-color: #cd5ff8;
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
 .logo a {
+  position: relative;
   color: #cd5ff8;
   font-size: 2.5em;
   font-weight: bold;
   font-family: math;
+}
+
+.logo a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 3px;
+  background-color: #cd5ff8;
+  transition: width 0.3s ease;
+}
+
+.logo a:hover::after {
+  width: 100%;
 }
 
 nav a.active {
@@ -67,4 +100,7 @@ footer {
 .social-link {
   color: #cd5ff8;
   padding-right: 20px;
+}
+.author-name {
+  color: #cd5ff8;
 }
