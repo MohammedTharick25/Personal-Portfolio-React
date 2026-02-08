@@ -1,65 +1,124 @@
 import React from "react";
+import { Instagram, Twitter, Github, Linkedin, Heart } from "lucide-react";
+import { motion } from "framer-motion";
 
-function Footer() {
+const Footer = () => {
   return (
-    <>
-      <footer>
-        <div>
-          Design and Developed by{" "}
-          <span className="author-name">Mohammed Tharick</span>
-        </div>
-        <div>
-          Copyright © 2025 <span className="author-name">MT</span>
-        </div>
-        <div className="social-links">
-          <a
-            href="https://www.instagram.com/md_tharick22/"
-            target="_blank"
-            className="social-link"
-            aria-label="Instagram"
-          >
-            <i className="fab fa-instagram"></i>
-          </a>
+    <footer className="relative mt-0.5">
+      {/* Top Divider Glow */}
+      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brand to-transparent" />
 
-          <a
-            href="https://www.facebook.com/md.tharick/"
-            target="_blank"
-            className="social-link"
-            aria-label="Facebook"
-          >
-            <i className="fab fa-facebook"></i>
-          </a>
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none" />
 
-          <a
-            href="https://www.x.com/a_tharick52871"
-            target="_blank"
-            className="social-link"
-            aria-label="X (Twitter)"
-          >
-            <i className="fab fa-x-twitter"></i>
-          </a>
+      <div
+        className="
+          relative
+          max-w-7xl
+          mx-auto
+          px-8
+          py-12
+          grid
+          gap-8
+          md:grid-cols-3
+          items-center
+        "
+      >
+        {/* ================= LEFT ================= */}
 
-          <a
-            href="https://www.github.com/MohammedTharick25"
-            target="_blank"
-            className="social-link"
-            aria-label="GitHub"
-          >
-            <i className="fab fa-github"></i>
-          </a>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center md:text-left space-y-2"
+        >
+          <h3 className="text-lg font-bold tracking-wide">
+            Mohammed <span className="text-brand">Tharick</span>
+          </h3>
 
-          <a
-            href="https://www.linkedin.com/mdtharick/"
-            target="_blank"
-            className="social-link"
-            aria-label="LinkedIn"
-          >
-            <i className="fab fa-linkedin"></i>
-          </a>
-        </div>
-      </footer>
-    </>
+          <p className="text-gray-400 text-sm">
+            Full-Stack Developer • MERN Specialist
+          </p>
+
+          <p className="text-gray-500 text-xs">
+            Building scalable & meaningful products.
+          </p>
+        </motion.div>
+
+        {/* ================= CENTER ================= */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="flex justify-center gap-5"
+        >
+          {[
+            {
+              icon: <Instagram size={18} />,
+              url: "https://www.instagram.com/md_tharick22/",
+            },
+            {
+              icon: <Twitter size={18} />,
+              url: "https://www.x.com/a_tharick52871",
+            },
+            {
+              icon: <Github size={18} />,
+              url: "https://www.github.com/MohammedTharick25",
+            },
+            {
+              icon: <Linkedin size={18} />,
+              url: "https://www.linkedin.com/mdtharick/",
+            },
+          ].map((social, i) => (
+            <motion.a
+              key={i}
+              href={social.url}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ y: -4, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="
+                w-11 h-11
+                flex items-center justify-center
+                rounded-full
+                bg-white/5
+                border border-white/10
+                text-gray-400
+                hover:text-brand
+                hover:border-brand/40
+                hover:shadow-[0_0_20px_rgba(205,95,248,0.4)]
+                transition
+              "
+            >
+              {social.icon}
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* ================= RIGHT ================= */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-center md:text-right space-y-2"
+        >
+          <p className="text-gray-400 text-sm">
+            © 2026{" "}
+            <span className="text-brand font-semibold">Mohammed Tharick</span>
+          </p>
+
+          <p className="text-gray-500 text-xs flex items-center justify-center md:justify-end gap-1">
+            Made with <Heart size={12} className="text-red-500" /> in India
+          </p>
+        </motion.div>
+      </div>
+    </footer>
   );
-}
+};
 
 export default Footer;

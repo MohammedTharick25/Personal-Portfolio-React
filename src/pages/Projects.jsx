@@ -1,297 +1,365 @@
-import React from "react";
-import "../styles/Projects.css";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, ExternalLink, X, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-function Projects() {
+import ParticlesBackground from "../components/ParticlesBackground";
+
+/* ================= PROJECT DATA ================= */
+
+const projects = [
+  {
+    id: 1,
+    title: "TaloSync (Job Portal)",
+    shortDesc: "A job portal with real-time notifications and user management.",
+    longDesc:
+      "TaloSync is a full-stack job portal built with the MERN stack (MongoDB, Express, React, Node.js). It enables secure user authentication, job listing and search, and role-based features for job seekers and recruiters. Users can browse and apply for jobs, while recruiters can post and manage listings.",
+    img: "/project-imgs/TaloSync.png",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    git: "https://github.com/MohammedTharick25/MERN-Stack-TaloSync-JobPortal-",
+    demo: "https://talosync.onrender.com/",
+  },
+  {
+    id: 2,
+    title: "Facial Expression Recognition",
+    shortDesc: "A CNN-based emotion classifier using Python and OpenCV.",
+    longDesc:
+      "This project implements a Deep Learning model using Convolutional Neural Networks (CNN) to detect human faces and classify emotions into seven categories: Angry, Disgust, Fear, Happy, Sad, Surprise, and Neutral. It features a real-time webcam interface and high accuracy on the FER2013 dataset.",
+    img: "/project-imgs/FER-img.png",
+    tags: ["Python", "TensorFlow", "OpenCV"],
+    git: "https://github.com/MohammedTharick25/FER-Main-1",
+    demo: "#",
+  },
+  {
+    id: 3,
+    title: "Solo Leveling System",
+    shortDesc: "Gamified productivity app inspired by the famous Manhwa.",
+    longDesc:
+      "A complete life-gamification system. Users can set real-life 'Quests', gain XP, and level up their stats in Strength (Fitness), Intelligence (Learning), and Agility (Productivity). It uses LocalStorage for data persistence and features a stunning anime-inspired UI.",
+    img: "/project-imgs/system-interface.png",
+    tags: ["JavaScript", "HTML5", "CSS3"],
+    git: "https://github.com/MohammedTharick25/Solo-Leveling-System",
+    demo: "https://solo-leveling-system.netlify.app/",
+  },
+  {
+    id: 4,
+    title: "Weather App",
+    shortDesc: "Real-time weather tracking with a sleek glassmorphism UI.",
+    longDesc:
+      "A high-performance weather dashboard that fetches data from OpenWeather API. It provides detailed forecasts, humidity levels, and wind speeds, all wrapped in a dynamic interface that changes background based on weather conditions.",
+    img: "/project-imgs/weather-app-img.png",
+    tags: ["React", "API Integration", "Tailwind"],
+    git: "https://github.com/MohammedTharick25/Weather-App",
+    demo: "https://weather-app-cloudapi.netlify.app/",
+  },
+  {
+    id: 5,
+    title: "Personal Portfolio",
+    shortDesc: "A responsive portfolio website showcasing projects and skills.",
+    longDesc:
+      "A modern, responsive portfolio website built with React and Tailwind CSS. It features a sleek design with smooth animations, dark/light mode toggle, and a contact form. The site is fully optimized for performance and accessibility.",
+    img: "/project-imgs/React portfolio.png",
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
+
+    git: "https://github.com/MohammedTharick25/Personal-Portfolio-React",
+    demo: "https://mt-personal-portfolio-react.netlify.app/",
+  },
+  {
+    id: 6,
+    title: "Todo App",
+    shortDesc:
+      "A responsive and feature-rich todo application built with React and Tailwind CSS.",
+    longDesc:
+      "A modern, responsive todo application built with React and Tailwind CSS. It features a sleek design with smooth animations, dark/light mode toggle, and a clean UI. The app supports task creation, editing, deletion, and filtering.",
+    img: "/project-imgs/mern todo app.png",
+    tags: ["React", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
+
+    git: "https://github.com/MohammedTharick25/MERN-Todo-App",
+    demo: "https://mern-todo-app-n2cs.onrender.com/",
+  },
+];
+
+/* ================= PROJECTS ================= */
+
+const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
-    <>
-      <section>
-        <div className="project-head">
-          <h1>
-            My Recent <span style={{ color: "#cd5ff8" }}>Works</span>
-          </h1>
-          <p>Here are a few projects I've worked on recently.</p>
-        </div>
-        <div className="project-container">
-          <div className="inner-container">
-            <div className="card">
-              <img
-                src="/project-imgs/FER-img.png"
-                alt="FER Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Facial Expression Recongnition (FER)</h3>
-                <p className="project-description">
-                  A concise, ready-to-use facial expression recognition tool: it
-                  detects faces and uses a trained CNN to classify basic
-                  emotions. Wrapped in a clean interface (with your UI), it
-                  delivers reliable emotion-prediction from images or webcam
-                  input — simple, effective, and ready to demo.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/FER-Main-1"
-                    target="_blank"
-                    role="button"
+    <div className="pt-24 px-8 pb-20 min-h-screen relative overflow-hidden">
+      {/* Particles */}
+      <ParticlesBackground />
+
+      {/* Ambient Glow */}
+      <motion.div
+        className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-3xl"
+        animate={{ x: [80, 80, 80], y: [40, 40, 40] }}
+        transition={{ duration: 20, repeat: Infinity }}
+      />
+
+      {/* Header */}
+      <div className="text-center mb-16 relative z-10">
+        <motion.h1
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="text-6xl font-extrabold mb-4"
+        >
+          My Recent <span className="text-brand">Works</span>
+        </motion.h1>
+
+        <p className="text-gray-400 tracking-widest uppercase text-sm">
+          Click a project to expand
+        </p>
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto relative z-10">
+        {projects.map((project) => (
+          <motion.div
+            key={project.id}
+            layoutId={`card-${project.id}`}
+            onClick={() => setSelectedProject(project)}
+            whileHover={{ y: -10 }}
+            className="
+              glass
+              rounded-3xl
+              overflow-hidden
+              cursor-pointer
+              group
+              border border-white/5
+              hover:border-brand/50
+              transition
+            "
+          >
+            <motion.img
+              layoutId={`img-${project.id}`}
+              src={project.img}
+              alt={project.title}
+              className="w-full h-56 object-cover"
+            />
+
+            <div className="p-6">
+              {/* Tags */}
+              <div className="flex gap-2 mb-3 flex-wrap">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] bg-brand/10 text-brand px-2 py-1 rounded-full uppercase font-bold"
                   >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <motion.h3
+                layoutId={`title-${project.id}`}
+                className="text-2xl font-bold mb-2"
+              >
+                {project.title}
+              </motion.h3>
+
+              <p className="text-gray-400 text-sm line-clamp-2">
+                {project.shortDesc}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* ================= MODAL ================= */}
+
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              layoutId={`card-${selectedProject.id}`}
+              className="
+          relative
+          w-full
+          max-w-6xl
+          h-[85vh]
+          glass
+          rounded-3xl
+          overflow-hidden
+          border border-white/10
+          shadow-2xl
+          flex
+          flex-col
+          md:flex-row
+        "
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="
+            absolute top-5 right-5 z-20
+            p-2
+            bg-black/60
+            hover:bg-brand
+            rounded-full
+            text-white
+            transition
+          "
+              >
+                <X size={22} />
+              </button>
+
+              {/* ================= LEFT : IMAGE (40%) ================= */}
+
+              <div className="md:w-[40%] w-full h-64 md:h-full relative overflow-hidden">
+                <motion.img
+                  layoutId={`img-${selectedProject.id}`}
+                  src={selectedProject.img}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </div>
+
+              {/* ================= RIGHT : CONTENT (60%) ================= */}
+
+              <div
+                className="
+            md:w-[60%]
+            w-full
+            h-full
+            overflow-y-auto
+            p-8 md:p-12
+            flex
+            flex-col
+            justify-center
+          "
+              >
+                {/* Tags */}
+                <div className="flex gap-3 mb-5 flex-wrap">
+                  {selectedProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="
+                  text-xs
+                  bg-brand/15
+                  text-brand
+                  px-3 py-1
+                  rounded-full
+                  font-bold
+                  uppercase
+                "
                     >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Title */}
+                <motion.h2
+                  layoutId={`title-${selectedProject.id}`}
+                  className="text-3xl md:text-4xl font-extrabold mb-5"
+                >
+                  {selectedProject.title}
+                </motion.h2>
+
+                {/* Description */}
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="
+              text-gray-300
+              text-base
+              md:text-lg
+              leading-relaxed
+              mb-8
+              max-w-xl
+            "
+                >
+                  {selectedProject.longDesc}
+                </motion.p>
+
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                   <a
-                    href="https://github.com/MohammedTharick25/FER-Main-1"
+                    href={selectedProject.git}
                     target="_blank"
-                    role="button"
-                    style={{ gap: "10px", pointerEvents: "none", opacity: 0.5 }}
+                    rel="noreferrer"
+                    className="
+                flex-1
+                flex items-center justify-center gap-2
+                bg-white text-black
+                py-3
+                rounded-xl
+                font-bold
+                hover:bg-brand
+                hover:text-white
+                transition
+              "
                   >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
+                    <Github size={20} />
+                    View Code
+                  </a>
+
+                  <a
+                    href={selectedProject.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                flex-1
+                flex items-center justify-center gap-2
+                bg-brand text-white
+                py-3
+                rounded-xl
+                font-bold
+                hover:shadow-[0_0_20px_rgba(205,95,248,0.5)]
+                transition
+              "
+                  >
+                    <ExternalLink size={20} />
+                    Live Demo
                   </a>
                 </div>
               </div>
-            </div>
-            <div className="card">
-              <img
-                src="/project-imgs/system-interface.png"
-                alt="System Interface Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Solo Leveling System</h3>
-                <p className="project-description">
-                  A gamified personal-growth web app that turns everyday tasks
-                  into RPG-style “quests,” where you earn XP and track progress
-                  across key life pillars (fitness, learning, productivity, and
-                  wellbeing). It uses HTML, CSS, JavaScript, and local storage
-                  to run entirely in-browser — no backend needed.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/Solo-Leveling-System"
-                    target="_blank"
-                    role="button"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
-                  <a
-                    href="https://solo-leveling-system.netlify.app/"
-                    target="_blank"
-                    role="button"
-                    style={{ gap: "10px" }}
-                  >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="/project-imgs/weather-app-img.png"
-                alt="Weather App Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Weather App</h3>
-                <p className="project-description">
-                  A modern, responsive web-weather app built with HTML, CSS, and
-                  JavaScript. It fetches real-time weather data using
-                  WeatherAPI, and presents temperature, location, and weather
-                  conditions via a clean UI with light/dark themes and smooth
-                  transitions for all devices.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/Weather-App"
-                    target="_blank"
-                    role="button"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
-                  <a
-                    href="https://weather-app-cloudapi.netlify.app/"
-                    target="_blank"
-                    role="button"
-                    style={{ gap: "10px" }}
-                  >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="/project-imgs/react-todo-img.png"
-                alt="Todo App Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Todo App (React)</h3>
-                <p className="project-description">
-                  A React-powered task manager that lets users add, track, and
-                  remove to-dos through a clean, responsive UI. It uses modern
-                  frontend tooling (React + Vite) and local storage to keep
-                  tasks persistent — perfect for everyday productivity on web.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/Todo-List"
-                    target="_blank"
-                    role="button"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
-                  <a
-                    href="https://mt-to-do-list.netlify.app/"
-                    target="_blank"
-                    role="button"
-                    style={{ gap: "10px" }}
-                  >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="/project-imgs/RPC-img.png"
-                alt="RPS Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Rock Paper Scissor (RPS)</h3>
-                <p className="project-description">
-                  A browser-based implementation of the classic Rock, Paper,
-                  Scissors game using HTML, CSS, and JavaScript. It lets you
-                  play against the computer, tracks your wins/losses/draws, and
-                  provides a clean, responsive UI for quick rounds and fun
-                  interactions.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/Odin-Rock-Paper-Scissor-Game"
-                    target="_blank"
-                    role="button"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
-                  <a
-                    href="https://mohammedtharick25.github.io/Odin-Rock-Paper-Scissor-Game/"
-                    target="_blank"
-                    role="button"
-                    style={{ gap: "10px" }}
-                  >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card">
-              <img
-                src="/project-imgs/YT-img.png"
-                alt="Youtube Clone Project"
-                width="100%"
-              />
-              <div className="card-text">
-                <h3>Youtube Clone</h3>
-                <p className="project-description">
-                  A web-based replica of the YouTube interface: it presents
-                  video thumbnails, a navigation sidebar, search bar and video
-                  layout using HTML, CSS and JavaScript. It’s responsive, clean,
-                  and mimics the familiar video-browsing experience.
-                </p>
-                <div className="github-btns">
-                  <a
-                    href="https://github.com/MohammedTharick25/Youtube-Clone"
-                    target="_blank"
-                    role="button"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth="0"
-                      viewBox="0 0 16 16"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    &nbsp; GitGub
-                  </a>
-                  <a
-                    href="https://my-u-tube-clone.netlify.app/"
-                    target="_blank"
-                    role="button"
-                    style={{ gap: "10px" }}
-                  >
-                    <img src="/project-imgs/code-icon.ico" alt="code icon" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
-    </>
+        )}
+      </AnimatePresence>
+
+      {/* Footer CTA */}
+      <div className="mt-32 text-center relative z-10">
+        <p className="text-gray-500 mb-4 tracking-widest uppercase text-xs">
+          Have an idea in mind?
+        </p>
+
+        <Link
+          to="/contact"
+          className="
+            inline-flex
+            items-center
+            gap-2
+            text-brand
+            text-3xl
+            font-bold
+            hover:gap-6
+            transition-all
+            duration-300
+            group
+          "
+        >
+          Let's Get In Touch
+          <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+        </Link>
+      </div>
+    </div>
   );
-}
+};
 
 export default Projects;

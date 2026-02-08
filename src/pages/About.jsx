@@ -1,212 +1,278 @@
-import React from "react";
-import "../styles/About.css";
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { Plane, BookOpen, Heart, Utensils } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import ParticlesBackground from "../components/ParticlesBackground";
 
-function About() {
+/* ================= SKILLS ================= */
+
+const row1 = [
+  { name: "JavaScript", icon: "/skills-imgs/Javascript.svg" },
+  { name: "React.js", icon: "/skills-imgs/React.svg" },
+  { name: "HTML 5", icon: "/skills-imgs/html.png" },
+  { name: "CSS 3", icon: "/skills-imgs/css-3.png" },
+  { name: "Tailwind", icon: "/skills-imgs/Tailwind.svg" },
+  { name: "C++", icon: "/skills-imgs/C++.svg" },
+];
+
+const row2 = [
+  { name: "Node.js", icon: "/skills-imgs/Node.svg" },
+  { name: "MongoDB", icon: "/skills-imgs/Mongo.svg" },
+  { name: "Postgres", icon: "/skills-imgs/SQL.svg" },
+  { name: "Python", icon: "/skills-imgs/Python.svg" },
+  { name: "Java", icon: "/skills-imgs/Java.svg" },
+  { name: "Git", icon: "/skills-imgs/Git.svg" },
+];
+
+const row3 = [
+  { name: "Postman", icon: "/skills-imgs/Postman.svg" },
+  { name: "OpenCV", icon: "/skills-imgs/opencv.svg" },
+  { name: "VS Code", icon: "/skills-imgs/vscode.svg" },
+  { name: "GitHub", icon: "/skills-imgs/github.png" },
+  { name: "Chrome", icon: "/skills-imgs/Google-Chrome.svg" },
+];
+
+/* ================= MARQUEE ================= */
+
+const MarqueeRow = ({ items, direction = "left", speed = 25 }) => {
+  return (
+    <div className="overflow-hidden py-4 select-none relative">
+      <motion.div
+        animate={{
+          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
+        }}
+        transition={{
+          ease: "linear",
+          duration: speed,
+          repeat: Infinity,
+        }}
+        className="flex gap-6 min-w-full"
+      >
+        {[...items, ...items].map((item, i) => (
+          <motion.div
+            key={i}
+            whileHover={{
+              y: -6,
+              scale: 1.05,
+            }}
+            className="
+              glass
+              flex items-center gap-4
+              px-8 py-4
+              rounded-2xl
+              border border-white/10
+              hover:border-brand/60
+              hover:bg-white/5
+              transition-all
+              group
+              shrink-0
+              shadow-lg
+            "
+          >
+            <img
+              src={item.icon}
+              alt={item.name}
+              className={`
+                w-8 h-8 object-contain
+                transition-all
+                group-hover:scale-110
+                ${item.name === "GitHub" ? "bg-white rounded-full p-0.5" : ""}
+              `}
+            />
+
+            <span className="text-gray-400 font-medium group-hover:text-white">
+              {item.name}
+            </span>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+/* ================= ABOUT ================= */
+
+const About = () => {
   return (
     <>
-      <section className="about-head">
-        <div className="intro-text">
-          <h1>
-            Know Who{" "}
-            <span
-              style={{
-                color: "#c770f0",
-                fontStyle: "normal",
-              }}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="pt-28 pb-24 px-6 md:px-12 max-w-7xl mx-auto relative overflow-hidden"
+      >
+        {/* Particles Background */}
+        <ParticlesBackground />
+
+        {/* Ambient Background Orbs */}
+        <motion.div
+          className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-3xl"
+          animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
+          transition={{ duration: 20, repeat: Infinity }}
+        />
+
+        <motion.div
+          className="absolute top-1/3 -right-40 w-[400px] h-[400px] bg-indigo-500/20 rounded-full blur-3xl"
+          animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
+          transition={{ duration: 25, repeat: Infinity }}
+        />
+
+        {/* ================= INTRO ================= */}
+
+        <section className="flex flex-col md:flex-row items-center gap-16 mb-32 relative z-10">
+          {/* TEXT CARD */}
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="flex-1"
+          >
+            <h1 className="text-5xl font-bold mb-10">
+              Know Who <span className="text-brand">I'M</span>
+            </h1>
+
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              className="
+              glass
+              p-10
+              rounded-3xl
+              space-y-5
+              text-gray-300
+              leading-relaxed
+              text-lg
+              shadow-[0_30px_80px_rgba(0,0,0,0.4)]
+            "
             >
-              I'M
-            </span>
-          </h1>
-          <div className="container">
-            <p>
-              Hi everyone! I’m <span>Mohammed Tharick</span> from{" "}
-              <span>Kalpakkam, India</span>. <br />
-              <br />
-              I’m an aspiring <span>Web Developer</span> passionate about
-              building clean, functional, and real-world applications. <br />
-              <br />I work with <span>HTML, CSS, JavaScript, React,</span> and
-              <span> Node.js,</span> and I’ve created{" "}
-              <span>multiple projects</span> to sharpen my development skills
-              and understand how systems work end-to-end. <br />
-              <br />
-              Outside of coding, I enjoy things that keep me curious, active,
-              and constantly learning:
-            </p>
-            <ul>
-              <li>
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  version="1.1"
-                  viewBox="0 0 16 16"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M6.5 15h2.5c0.827 0 1.5-0.673 1.5-1.5 0-0.267-0.070-0.518-0.193-0.736 0.417-0.267 0.693-0.734 0.693-1.264 0-0.384-0.145-0.734-0.383-1 0.238-0.266 0.383-0.616 0.383-1 0-0.175-0.030-0.344-0.086-0.5h3.586c0.827 0 1.5-0.673 1.5-1.5s-0.673-1.5-1.5-1.5h-6.167l1.466-2.75c0.131-0.227 0.201-0.486 0.201-0.75 0-0.827-0.673-1.5-1.5-1.5-0.412 0-0.796 0.164-1.082 0.461-0.004 0.004-0.007 0.008-0.011 0.012l-3.407 3.737v-0.71c0-0.276-0.224-0.5-0.5-0.5h-3c-0.276 0-0.5 0.224-0.5 0.5v10c0 0.276 0.224 0.5 0.5 0.5h3c0.276 0 0.5-0.224 0.5-0.5v-0.691l2.276 1.138c0.069 0.035 0.146 0.053 0.224 0.053zM2.5 14c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5 0.5 0.224 0.5 0.5-0.224 0.5-0.5 0.5zM6.618 14l-2.618-1.309v-5.997l4.143-4.544c0.095-0.097 0.221-0.15 0.357-0.15 0.276 0 0.5 0.224 0.5 0.5 0 0.085-0.020 0.166-0.061 0.239-0.005 0.008-0.010 0.017-0.014 0.025l-1.866 3.5c-0.083 0.155-0.078 0.342 0.013 0.492s0.253 0.243 0.429 0.243h7c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-2.382z"></path>
-                </svg>
-                Traveling to new places 🌍
-              </li>
-              <li>
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  version="1.1"
-                  viewBox="0 0 16 16"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M6.5 15h2.5c0.827 0 1.5-0.673 1.5-1.5 0-0.267-0.070-0.518-0.193-0.736 0.417-0.267 0.693-0.734 0.693-1.264 0-0.384-0.145-0.734-0.383-1 0.238-0.266 0.383-0.616 0.383-1 0-0.175-0.030-0.344-0.086-0.5h3.586c0.827 0 1.5-0.673 1.5-1.5s-0.673-1.5-1.5-1.5h-6.167l1.466-2.75c0.131-0.227 0.201-0.486 0.201-0.75 0-0.827-0.673-1.5-1.5-1.5-0.412 0-0.796 0.164-1.082 0.461-0.004 0.004-0.007 0.008-0.011 0.012l-3.407 3.737v-0.71c0-0.276-0.224-0.5-0.5-0.5h-3c-0.276 0-0.5 0.224-0.5 0.5v10c0 0.276 0.224 0.5 0.5 0.5h3c0.276 0 0.5-0.224 0.5-0.5v-0.691l2.276 1.138c0.069 0.035 0.146 0.053 0.224 0.053zM2.5 14c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5 0.5 0.224 0.5 0.5-0.224 0.5-0.5 0.5zM6.618 14l-2.618-1.309v-5.997l4.143-4.544c0.095-0.097 0.221-0.15 0.357-0.15 0.276 0 0.5 0.224 0.5 0.5 0 0.085-0.020 0.166-0.061 0.239-0.005 0.008-0.010 0.017-0.014 0.025l-1.866 3.5c-0.083 0.155-0.078 0.342 0.013 0.492s0.253 0.243 0.429 0.243h7c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-2.382z"></path>
-                </svg>
-                Reading and exploring new technologies 📚
-              </li>
-              <li>
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  version="1.1"
-                  viewBox="0 0 16 16"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M6.5 15h2.5c0.827 0 1.5-0.673 1.5-1.5 0-0.267-0.070-0.518-0.193-0.736 0.417-0.267 0.693-0.734 0.693-1.264 0-0.384-0.145-0.734-0.383-1 0.238-0.266 0.383-0.616 0.383-1 0-0.175-0.030-0.344-0.086-0.5h3.586c0.827 0 1.5-0.673 1.5-1.5s-0.673-1.5-1.5-1.5h-6.167l1.466-2.75c0.131-0.227 0.201-0.486 0.201-0.75 0-0.827-0.673-1.5-1.5-1.5-0.412 0-0.796 0.164-1.082 0.461-0.004 0.004-0.007 0.008-0.011 0.012l-3.407 3.737v-0.71c0-0.276-0.224-0.5-0.5-0.5h-3c-0.276 0-0.5 0.224-0.5 0.5v10c0 0.276 0.224 0.5 0.5 0.5h3c0.276 0 0.5-0.224 0.5-0.5v-0.691l2.276 1.138c0.069 0.035 0.146 0.053 0.224 0.053zM2.5 14c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5 0.5 0.224 0.5 0.5-0.224 0.5-0.5 0.5zM6.618 14l-2.618-1.309v-5.997l4.143-4.544c0.095-0.097 0.221-0.15 0.357-0.15 0.276 0 0.5 0.224 0.5 0.5 0 0.085-0.020 0.166-0.061 0.239-0.005 0.008-0.010 0.017-0.014 0.025l-1.866 3.5c-0.083 0.155-0.078 0.342 0.013 0.492s0.253 0.243 0.429 0.243h7c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-2.382z"></path>
-                </svg>
-                Helping people whenever I can 🤝
-              </li>
-              <li>
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  version="1.1"
-                  viewBox="0 0 16 16"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M6.5 15h2.5c0.827 0 1.5-0.673 1.5-1.5 0-0.267-0.070-0.518-0.193-0.736 0.417-0.267 0.693-0.734 0.693-1.264 0-0.384-0.145-0.734-0.383-1 0.238-0.266 0.383-0.616 0.383-1 0-0.175-0.030-0.344-0.086-0.5h3.586c0.827 0 1.5-0.673 1.5-1.5s-0.673-1.5-1.5-1.5h-6.167l1.466-2.75c0.131-0.227 0.201-0.486 0.201-0.75 0-0.827-0.673-1.5-1.5-1.5-0.412 0-0.796 0.164-1.082 0.461-0.004 0.004-0.007 0.008-0.011 0.012l-3.407 3.737v-0.71c0-0.276-0.224-0.5-0.5-0.5h-3c-0.276 0-0.5 0.224-0.5 0.5v10c0 0.276 0.224 0.5 0.5 0.5h3c0.276 0 0.5-0.224 0.5-0.5v-0.691l2.276 1.138c0.069 0.035 0.146 0.053 0.224 0.053zM2.5 14c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5 0.5 0.224 0.5 0.5-0.224 0.5-0.5 0.5zM6.618 14l-2.618-1.309v-5.997l4.143-4.544c0.095-0.097 0.221-0.15 0.357-0.15 0.276 0 0.5 0.224 0.5 0.5 0 0.085-0.020 0.166-0.061 0.239-0.005 0.008-0.010 0.017-0.014 0.025l-1.866 3.5c-0.083 0.155-0.078 0.342 0.013 0.492s0.253 0.243 0.429 0.243h7c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-2.382z"></path>
-                </svg>
-                Cooking and trying out new dishes 👨‍🍳
-              </li>
-            </ul>
-            <p style={{ color: "rgb(155, 126, 172)", marginBottom: "10px" }}>
-              "Keep building. Keep learning. Keep growing."
-            </p>
-            <footer className="about-footer">— Mohammed Tharick</footer>
+              <p>
+                Hi, I’m{" "}
+                <span className="text-brand italic font-semibold">
+                  Mohammed Tharick
+                </span>{" "}
+                from
+                <span className="text-brand"> Kalpakkam, India</span>.
+              </p>
+
+              <p>
+                An aspiring{" "}
+                <span className="text-white font-medium">
+                  Full-Stack Developer
+                </span>{" "}
+                focused on building scalable, real-world systems.
+              </p>
+
+              <p>
+                Experienced with <span className="text-brand">MERN</span> and
+                modern tooling, delivering performant, maintainable products.
+              </p>
+
+              <p className="pt-6 text-white font-semibold underline decoration-brand underline-offset-8">
+                Outside of coding:
+              </p>
+
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                {[
+                  { icon: <Plane size={20} />, text: "Exploring new places" },
+                  { icon: <BookOpen size={20} />, text: "Reading tech blogs" },
+                  { icon: <Heart size={20} />, text: "Community volunteering" },
+                  {
+                    icon: <Utensils size={20} />,
+                    text: "Experimenting with food",
+                  },
+                ].map((item, i) => (
+                  <motion.li
+                    key={i}
+                    whileHover={{ x: 6 }}
+                    className="flex items-center gap-3 text-sm"
+                  >
+                    <span className="text-brand">{item.icon}</span>
+                    {item.text}
+                  </motion.li>
+                ))}
+              </ul>
+
+              <blockquote className="pt-6 text-brand-light font-mono">
+                “Keep building. Keep learning. Keep growing.”
+              </blockquote>
+
+              <footer className="text-gray-500">— Mohammed Tharick</footer>
+            </motion.div>
+          </motion.div>
+
+          {/* PROFILE IMAGE */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex-1 flex justify-center"
+          >
+            <motion.div
+              whileHover={{ rotateY: 8, rotateX: -8 }}
+              transition={{ type: "spring", stiffness: 120 }}
+              className="relative perspective-1000"
+            >
+              {/* Glow */}
+              <div className="absolute -inset-6 bg-brand/30 blur-3xl rounded-full" />
+
+              {/* Frame */}
+              <div className="relative rounded-3xl p-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-2xl">
+                <div className="rounded-3xl bg-black/40 backdrop-blur-xl p-2">
+                  <motion.img
+                    src="/about-img.png"
+                    alt="Developer"
+                    className="w-full max-w-md rounded-2xl object-cover"
+                    whileHover={{ scale: 1.05 }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ================= SKILLS ================= */}
+
+        <section className="relative py-20 z-10">
+          {/* Divider */}
+          <div className="flex items-center gap-6 mb-16">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand" />
+            <h2 className="text-4xl font-bold whitespace-nowrap">
+              Professional <span className="text-brand">Skillset</span>
+            </h2>
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand" />
           </div>
-        </div>
-        <div className="intro-img">
-          <img src="/about-img.png" alt="About Image" />
-        </div>
-      </section>
 
-      {/* Professional Skillset */}
+          {/* Edge Fade */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0f021a] to-transparent z-10" />
 
-      <h1 style={{ textAlign: "center" }}>
-        Professional <span style={{ fontStyle: "bold" }}>Skillset</span>
-      </h1>
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0f021a] to-transparent z-10" />
 
-      <div className="skills-container">
-        <div className="skill">
-          <img src="/skills-imgs/C++.svg" alt="C++" />
-          <div>C++</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Javascript.svg" alt="javascript" />
-          <div>JavaScript</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/html.png" alt="HTML 5" />
-          <div>HTML 5</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/css-3.png" alt="CSS 3" />
-          <div>CSS 3</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Python.svg" alt="Python" />
-          <div>Python</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Java.svg" alt="Java" />
-          <div>Java</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Git.svg" alt="Git" />
-          <div>Git</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Node.svg" alt="Node" />
-          <div>Node.Js</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/React.svg" alt="React Js" />
-          <div>React.Js</div>
-        </div>
-        <div className="skill">
-          <img src="/skills-imgs/Tailwind.svg" alt="Tailwind" />
-          <div>Tailwind CSS</div>
-        </div>
+            {/* Rows */}
+            <div className="space-y-6">
+              <MarqueeRow items={row1} direction="left" speed={28} />
+              <MarqueeRow items={row2} direction="right" speed={32} />
+              <MarqueeRow items={row3} direction="left" speed={26} />
+            </div>
+          </div>
+        </section>
 
-        <div className="skill">
-          <img src="/skills-imgs/Postman.svg" alt="Postman" />
-          <div>Postman</div>
+        <div className="mt-32 text-center px-6 relative z-10">
+          <p className="text-gray-500 mb-4 tracking-widest uppercase text-xs">
+            Want to see what I've built?
+          </p>
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 text-brand text-3xl font-bold hover:gap-6 transition-all duration-300 group"
+          >
+            View My Projects
+            <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+          </Link>
         </div>
-
-        <div className="skill">
-          <img src="/skills-imgs/Mongo.svg" alt="Mongo DB" />
-          <div>Mongo DB</div>
-        </div>
-
-        <div className="skill">
-          <img src="/skills-imgs/opencv.svg" alt="OpenCV" width="24px" />
-          <div>OpenCV</div>
-        </div>
-
-        <div className="skill">
-          <img src="/skills-imgs/SQL.svg" alt="Postgresql" />
-          <div>Postgresql</div>
-        </div>
-      </div>
-
-      <h1 style={{ textAlign: "center" }}>
-        <span>Tools</span> I Use
-      </h1>
-      <div className="tools">
-        <div className="skill">
-          <img
-            src="/skills-imgs/Google-Chrome.svg"
-            alt="Google Chrome"
-            width="24px"
-          />
-          <div>Google Chrome</div>
-        </div>
-
-        <div className="skill">
-          <img src="/skills-imgs/vscode.svg" alt="VS Code" width="24px" />
-          <div>VS Code</div>
-        </div>
-
-        <div className="skill">
-          <img
-            src="/skills-imgs/github.png"
-            alt="GitHub"
-            style={{
-              background: "white",
-              border: "1px solid black",
-              borderRadius: "60%",
-            }}
-          />
-          <div>GitHub</div>
-        </div>
-      </div>
+      </motion.div>
     </>
   );
-}
+};
 
 export default About;
