@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, X, ArrowRight } from "lucide-react";
+import { Github, ExternalLink, X, ArrowRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import ParticlesBackground from "../components/ParticlesBackground";
@@ -10,29 +10,61 @@ import ParticlesBackground from "../components/ParticlesBackground";
 const projects = [
   {
     id: 1,
+    title: "Real Estate Platform",
+    category: "Full Stack",
+    featured: true,
+    shortDesc:
+      "A full-stack real estate web application for browsing, listing, and managing properties.",
+    longDesc:
+      "A modern full-stack real estate platform built using the MERN stack...",
+    img: "/project-imgs/estatera-home-pic.png",
+    tags: [
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Socket.IO",
+    ],
+    git: "https://github.com/MohammedTharick25/Real-Estate",
+    demo: "https://estatera.onrender.com/",
+  },
+  {
+    id: 2,
     title: "TaloSync (Job Portal)",
+    category: "Full Stack",
+    featured: true,
     shortDesc: "A job portal with real-time notifications and user management.",
     longDesc:
       "TaloSync is a full-stack job portal built with the MERN stack (MongoDB, Express, React, Node.js). It enables secure user authentication, job listing and search, and role-based features for job seekers and recruiters. Users can browse and apply for jobs, while recruiters can post and manage listings.",
     img: "/project-imgs/TaloSync.png",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Tailwind CSS",
+      "Socket.IO",
+    ],
     git: "https://github.com/MohammedTharick25/MERN-Stack-TaloSync-JobPortal-",
     demo: "https://talosync.onrender.com/",
   },
   {
-    id: 2,
+    id: 3,
     title: "Facial Expression Recognition",
+    category: "AI/ML",
     shortDesc: "A CNN-based emotion classifier using Python and OpenCV.",
     longDesc:
       "This project implements a Deep Learning model using Convolutional Neural Networks (CNN) to detect human faces and classify emotions into seven categories: Angry, Disgust, Fear, Happy, Sad, Surprise, and Neutral. It features a real-time webcam interface and high accuracy on the FER2013 dataset.",
     img: "/project-imgs/FER-img.png",
-    tags: ["Python", "TensorFlow", "OpenCV"],
+    tags: ["Python", "TensorFlow", "OpenCV", "CNN"],
     git: "https://github.com/MohammedTharick25/FER-Main-1",
     demo: "#",
   },
   {
-    id: 3,
+    id: 4,
     title: "Solo Leveling System",
+    category: "Frontend",
     shortDesc: "Gamified productivity app inspired by the famous Manhwa.",
     longDesc:
       "A complete life-gamification system. Users can set real-life 'Quests', gain XP, and level up their stats in Strength (Fitness), Intelligence (Learning), and Agility (Productivity). It uses LocalStorage for data persistence and features a stunning anime-inspired UI.",
@@ -42,128 +74,185 @@ const projects = [
     demo: "https://solo-leveling-system.netlify.app/",
   },
   {
-    id: 4,
+    id: 5,
     title: "Weather App",
+    category: "Frontend",
     shortDesc: "Real-time weather tracking with a sleek glassmorphism UI.",
     longDesc:
       "A high-performance weather dashboard that fetches data from OpenWeather API. It provides detailed forecasts, humidity levels, and wind speeds, all wrapped in a dynamic interface that changes background based on weather conditions.",
     img: "/project-imgs/weather-app-img.png",
-    tags: ["React", "API Integration", "Tailwind"],
+    tags: ["React", "API", "Tailwind", "Framer Motion"],
     git: "https://github.com/MohammedTharick25/Weather-App",
     demo: "https://weather-app-cloudapi.netlify.app/",
   },
   {
-    id: 5,
+    id: 6,
     title: "Personal Portfolio",
+    category: "Frontend",
     shortDesc: "A responsive portfolio website showcasing projects and skills.",
     longDesc:
       "A modern, responsive portfolio website built with React and Tailwind CSS. It features a sleek design with smooth animations, dark/light mode toggle, and a contact form. The site is fully optimized for performance and accessibility.",
     img: "/project-imgs/React portfolio.png",
-    tags: ["React", "Tailwind CSS", "Framer Motion"],
-
+    tags: ["React", "Tailwind", "Framer Motion", "React Router"],
     git: "https://github.com/MohammedTharick25/Personal-Portfolio-React",
-    demo: "https://mt-personal-portfolio-react.netlify.app/",
+    demo: "https://mt-personal-portfolio.netlify.app/",
   },
   {
-    id: 6,
+    id: 7,
     title: "Todo App",
+    category: "Full Stack",
     shortDesc:
       "A responsive and feature-rich todo application built with React and Tailwind CSS.",
     longDesc:
       "A modern, responsive todo application built with React and Tailwind CSS. It features a sleek design with smooth animations, dark/light mode toggle, and a clean UI. The app supports task creation, editing, deletion, and filtering.",
     img: "/project-imgs/mern todo app.png",
-    tags: ["React", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
-
+    tags: ["React", "Node", "MongoDB", "Express", "Tailwind"],
     git: "https://github.com/MohammedTharick25/MERN-Todo-App",
     demo: "https://mern-todo-app-n2cs.onrender.com/",
   },
 ];
 
-/* ================= PROJECTS ================= */
+/* ================= COMPONENT ================= */
+
+const categories = ["All", "Full Stack", "Frontend", "AI/ML"];
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [search, setSearch] = useState("");
+  const [activeTag, setActiveTag] = useState(null);
+
+  /* ================= FILTER LOGIC ================= */
+
+  const filteredProjects = projects.filter((p) => {
+    const matchCategory =
+      activeCategory === "All" || p.category === activeCategory;
+
+    const matchSearch = p.title.toLowerCase().includes(search.toLowerCase());
+
+    const matchTag = activeTag ? p.tags.includes(activeTag) : true;
+
+    return matchCategory && matchSearch && matchTag;
+  });
 
   return (
     <div className="pt-24 px-8 pb-20 min-h-screen relative overflow-hidden">
-      {/* Particles */}
       <ParticlesBackground />
 
-      {/* Ambient Glow */}
-      <motion.div
-        className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-3xl"
-        animate={{ x: [80, 80, 80], y: [40, 40, 40] }}
-        transition={{ duration: 20, repeat: Infinity }}
-      />
-
-      {/* Header */}
-      <div className="text-center mb-16 relative z-10">
-        <motion.h1
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-6xl font-extrabold mb-4"
-        >
+      {/* HEADER */}
+      <div className="text-center mb-10 z-10 relative">
+        <h1 className="text-6xl font-extrabold mb-4">
           My Recent <span className="text-brand">Works</span>
-        </motion.h1>
-
+        </h1>
         <p className="text-gray-400 tracking-widest uppercase text-sm">
           Click a project to expand
         </p>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto relative z-10">
-        {projects.map((project) => (
-          <motion.div
-            key={project.id}
-            layoutId={`card-${project.id}`}
-            onClick={() => setSelectedProject(project)}
-            whileHover={{ y: -10 }}
-            className="
-              glass
-              rounded-3xl
-              overflow-hidden
-              cursor-pointer
-              group
-              border border-white/5
-              hover:border-brand/50
-              transition
-            "
+      {/* SEARCH */}
+      <div className="max-w-xl mx-auto mb-8 relative">
+        <Search className="absolute left-4 top-3 text-gray-500" />
+        <input
+          type="text"
+          placeholder="Search projects..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full pl-12 pr-4 py-3 bg-white/5 rounded-xl outline-none text-white"
+        />
+      </div>
+
+      {/* CATEGORY FILTER */}
+      <div className="flex justify-center gap-4 mb-8 flex-wrap">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-5 py-2 rounded-full ${
+              activeCategory === cat
+                ? "bg-brand text-white scale-105"
+                : "bg-white/5 text-gray-400"
+            }`}
           >
-            <motion.img
-              layoutId={`img-${project.id}`}
-              src={project.img}
-              alt={project.title}
-              className="w-full h-56 object-cover"
-            />
-
-            <div className="p-6">
-              {/* Tags */}
-              <div className="flex gap-2 mb-3 flex-wrap">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] bg-brand/10 text-brand px-2 py-1 rounded-full uppercase font-bold"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <motion.h3
-                layoutId={`title-${project.id}`}
-                className="text-2xl font-bold mb-2"
-              >
-                {project.title}
-              </motion.h3>
-
-              <p className="text-gray-400 text-sm line-clamp-2">
-                {project.shortDesc}
-              </p>
-            </div>
-          </motion.div>
+            {cat}
+          </button>
         ))}
       </div>
+
+      {/* TAG FILTER */}
+      <div className="flex justify-center gap-3 mb-12 flex-wrap">
+        {[...new Set(projects.flatMap((p) => p.tags))].map((tag) => (
+          <button
+            key={tag}
+            onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+            className={`px-3 py-1 text-xs rounded-full ${
+              activeTag === tag
+                ? "bg-brand text-white"
+                : "bg-white/10 text-gray-400"
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      {/* PROJECT GRID */}
+      <motion.div
+        layout
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto"
+      >
+        <AnimatePresence>
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
+              <motion.div
+                layout
+                key={project.id}
+                whileHover={{ y: -10 }}
+                onClick={() => setSelectedProject(project)}
+                className={`
+                  rounded-3xl overflow-hidden cursor-pointer group
+                  border transition
+                  ${
+                    project.featured
+                      ? "border-brand shadow-lg scale-[1.02]"
+                      : "border-white/10"
+                  }
+                `}
+              >
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  className="w-full h-56 object-cover"
+                />
+
+                <div className="p-6">
+                  <div className="flex gap-2 mb-3 flex-wrap">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveTag(tag);
+                        }}
+                        className="text-[10px] bg-brand/10 px-2 py-1 rounded-full cursor-pointer"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+
+                  <p className="text-gray-400 text-sm">{project.shortDesc}</p>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <p className="text-center col-span-full text-gray-500">
+              No projects found 😢
+            </p>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
       {/* ================= MODAL ================= */}
 
@@ -333,29 +422,13 @@ const Projects = () => {
         )}
       </AnimatePresence>
 
-      {/* Footer CTA */}
-      <div className="mt-32 text-center relative z-10">
-        <p className="text-gray-500 mb-4 tracking-widest uppercase text-xs">
-          Have an idea in mind?
-        </p>
-
+      {/* CTA */}
+      <div className="mt-32 text-center">
         <Link
           to="/contact"
-          className="
-            inline-flex
-            items-center
-            gap-2
-            text-brand
-            text-3xl
-            font-bold
-            hover:gap-6
-            transition-all
-            duration-300
-            group
-          "
+          className="text-brand text-3xl font-bold flex items-center justify-center gap-2"
         >
-          Let's Get In Touch
-          <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+          Let's Get In Touch <ArrowRight />
         </Link>
       </div>
     </div>
