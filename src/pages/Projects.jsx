@@ -16,7 +16,7 @@ const projects = [
     shortDesc:
       "A full-stack real estate web application for browsing, listing, and managing properties.",
     longDesc:
-      "A modern full-stack real estate platform built using the MERN stack...",
+      "Real Estate is a full-stack MERN web application that enables users to browse, search, and manage property listings for sale or rent. It features secure user authentication, property CRUD operations, image uploads, advanced search filters, and a responsive interface, providing a seamless experience for both property owners and buyers.",
     img: "/project-imgs/estatera-home-pic.png",
     tags: [
       "React",
@@ -64,14 +64,14 @@ const projects = [
   {
     id: 4,
     title: "Solo Leveling System",
-    category: "Frontend",
+    category: "Full Stack",
     shortDesc: "Gamified productivity app inspired by the famous Manhwa.",
     longDesc:
-      "A complete life-gamification system. Users can set real-life 'Quests', gain XP, and level up their stats in Strength (Fitness), Intelligence (Learning), and Agility (Productivity). It uses LocalStorage for data persistence and features a stunning anime-inspired UI.",
-    img: "/project-imgs/system-interface.png",
-    tags: ["JavaScript", "HTML5", "CSS3"],
+      "Solo Leveling System is a gamified personal productivity web application inspired by the Solo Leveling anime. It helps users track habits, complete daily quests, gain experience points (XP), level up, and monitor their progress through an interactive dashboard. The project focuses on improving consistency and motivation while demonstrating modern frontend development, responsive UI design, and clean component-based architecture.",
+    img: "/project-imgs/solo-leveling.png",
+    tags: ["React", "Node", "MongoDB", "Express", "Tailwind", "Socket.IO"],
     git: "https://github.com/MohammedTharick25/Solo-Leveling-System",
-    demo: "https://solo-leveling-system.netlify.app/",
+    demo: "https://solo-leveling-system-frontend.onrender.com/",
   },
   {
     id: 5,
