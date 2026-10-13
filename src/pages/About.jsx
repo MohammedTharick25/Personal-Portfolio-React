@@ -221,7 +221,9 @@ const About = () => {
                 <div className="rounded-3xl bg-black/40 backdrop-blur-xl p-2">
                   <motion.img
                     src="/about-img.png"
-                    alt="Developer"
+                    alt="Portrait of Mohammed Tharick"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full max-w-md rounded-2xl object-cover"
                     whileHover={{ scale: 1.05 }}
                   />

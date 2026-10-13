@@ -118,15 +118,28 @@ function Contact() {
             {/* Social Links */}
             <div className="mt-12 flex gap-4">
               {[
-                { icon: <Github />, link: "#" },
-                { icon: <Linkedin />, link: "#" },
-                { icon: <Instagram />, link: "#" },
+                {
+                  icon: <Github />,
+                  link: "https://github.com/MohammedTharick25",
+                  label: "GitHub",
+                },
+                {
+                  icon: <Linkedin />,
+                  link: "https://www.linkedin.com/mdtharick/",
+                  label: "LinkedIn",
+                },
+                {
+                  icon: <Instagram />,
+                  link: "https://www.instagram.com/md_tharick22/",
+                  label: "Instagram",
+                },
               ].map((item, i) => (
                 <motion.a
                   key={i}
                   href={item.link}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
+                  aria-label={item.label}
                   whileHover={{ y: -6 }}
                   className="p-3 glass rounded-full text-gray-400 hover:text-brand transition"
                 >

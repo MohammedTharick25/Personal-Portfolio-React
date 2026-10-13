@@ -13,6 +13,8 @@ import Contact from "./pages/Contact";
 import CustomCursor from "./components/CustomCursor";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import ChatAssistant from "./components/ChatAssistant";
+import Seo from "./components/Seo";
 
 import "./App.css";
 
@@ -23,6 +25,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <Seo />
       <AnimatePresence mode="wait">
         {isLoading ? (
           <WelcomeScreen key="loader" onFinished={() => setIsLoading(false)} />
@@ -30,6 +33,7 @@ function App() {
           <div className="bg-[#0f021a] min-h-screen relative overflow-hidden">
             <CustomCursor />
             <Navbar />
+            <ChatAssistant />
 
             {/* Crucial: mode="wait" ensures old page exits before new one enters */}
             <AnimatePresence mode="wait">

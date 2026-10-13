@@ -1,16 +1,45 @@
-# React + Vite
+# Mohammed Tharick — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React, Vite, and Tailwind CSS portfolio with project pages, contact form, animated interactions, and an AI assistant powered by Groq.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Use the Node.js version pinned by `.nvmrc` before running npm commands:
 
-## React Compiler
+```sh
+nvm use 24.21.0
+node --version
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+If that version is not installed, run `nvm install 24.21.0` first.
 
-## Expanding the ESLint configuration
+```sh
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Copy `.env.example` to `.env` in the repository root and add your Groq API key:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+`npm run dev` starts Netlify Dev, which runs the Vite frontend and the `/api/chat` Netlify Function together. The first run may download Netlify CLI. The key is read only by the function and must not use a `VITE_` prefix. Use `npm run dev:vite` only when you need to work on the frontend without serverless functions.
+
+The default model is `openai/gpt-oss-120b`. If you set `GROQ_MODEL` in the root `.env`, make sure it matches an active model available to your Groq account. After changing either Groq setting, restart Netlify Dev. A rejected key means create a valid key in GroqCloud.
+
+## Deploy to Netlify
+
+1. Add `GROQ_API_KEY` under **Site configuration → Environment variables** in Netlify. Optionally set `GROQ_MODEL`; the default is `openai/gpt-oss-120b`.
+2. Deploy the site. Netlify builds with `npm run build`, publishes `dist`, and deploys `netlify/functions`.
+3. The site URL in the SEO metadata, sitemap, and robots file is `https://mt-personal-portfolio.netlify.app/`. Update those references if you use a custom domain.
+
+Groq's free-tier limits and model availability are controlled by Groq and may change. The function limits each chat turn to eight messages and 1,000 characters per message.
+
+## Other commands
+
+- `npm run dev` — start Netlify Dev with the frontend and serverless functions.
+- `npm run dev:vite` — start Vite only; `/api/chat` will not be available.
+- `npm run build` — create the production build in `dist`.
+- `npm run lint` — run ESLint.
+- `npm run preview` — preview the production build locally.

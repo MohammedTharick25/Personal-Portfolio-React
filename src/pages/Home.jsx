@@ -46,7 +46,7 @@ const Home = () => {
 
         {/* ================= HERO ================= */}
 
-        <section className="h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
+        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-20 relative z-10">
           {/* Animated Background Glow */}
           <motion.div
             className="absolute w-150 h-150 rounded-full bg-linear-to-r from-indigo-500/30 via-purple-500/30 to-pink-500/30 blur-3xl"
@@ -64,13 +64,31 @@ const Home = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="relative z-10"
           >
-            <h1 className="text-7xl font-bold mb-4 tracking-tighter">
-              THE <span className="text-gradient">PORTFOLIO</span>
+            <p className="mb-6 text-sm font-semibold uppercase tracking-[0.28em] text-brand">
+              Full-stack developer · Chennai, India
+            </p>
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold mb-6 tracking-tighter">
+              Mohammed <span className="text-gradient">Tharick</span>
             </h1>
 
-            <p className="text-gray-400 text-xl max-w-lg mx-auto leading-relaxed">
-              Crafting digital experiences where functionality meets aesthetics.
+            <p className="text-gray-300 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
+              I build thoughtful digital products, from polished interfaces to
+              dependable full-stack applications.
             </p>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-brand/25 transition hover:-translate-y-1 hover:shadow-brand/40"
+              >
+                Explore my work <ArrowRight size={18} />
+              </Link>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold text-white transition hover:border-brand/60 hover:text-brand"
+              >
+                Let’s talk
+              </Link>
+            </div>
           </motion.div>
 
           {/* Scroll Guide */}
@@ -212,7 +230,9 @@ const Home = () => {
                   {/* Profile Image */}
                   <motion.img
                     src="/tharick.jpg"
-                    alt="profile"
+                    alt="Portrait of Mohammed Tharick"
+                    loading="lazy"
+                    decoding="async"
                     className="
                     w-[300px]
                     rounded-2xl

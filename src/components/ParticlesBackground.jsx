@@ -6,15 +6,17 @@ const ParticlesBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     let width = window.innerWidth;
     let height = window.innerHeight;
+    let animationFrame;
 
     canvas.width = width;
     canvas.height = height;
 
     const particles = [];
-    const PARTICLE_COUNT = 80;
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 35 : 60;
 
     class Particle {
       constructor() {
@@ -54,10 +56,16 @@ const ParticlesBackground = () => {
         p.draw();
       });
 
-      requestAnimationFrame(animate);
+      if (!reducedMotion.matches) {
+        animationFrame = requestAnimationFrame(animate);
+      }
     };
 
-    animate();
+    const draw = () => {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      animate();
+    };
+    draw();
 
     const handleResize = () => {
       width = window.innerWidth;
@@ -65,12 +73,16 @@ const ParticlesBackground = () => {
 
       canvas.width = width;
       canvas.height = height;
+      draw();
     };
 
     window.addEventListener("resize", handleResize);
+    reducedMotion.addEventListener("change", draw);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      reducedMotion.removeEventListener("change", draw);
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
